@@ -25,13 +25,15 @@ public class GameManager : MonoBehaviour
     {
         roundCoolDown = maxRoundCoolDown/2;
         isInCoolDown = true;
+        newRoundSound.volume = AudioManager.instance.sfxVolume;
     }
 
     // Update is called once per frame
     void Update()
     {
+        newRoundSound.volume = AudioManager.instance.sfxVolume;
 
-        if(isInCoolDown)
+        if (isInCoolDown)
         {
             roundTextElem.text = "Next Round in " + roundCoolDown.ToString("F0") + " sec";
             roundCoolDown -= Time.deltaTime;

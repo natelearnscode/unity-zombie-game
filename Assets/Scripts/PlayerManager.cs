@@ -28,13 +28,14 @@ public class PlayerManager : MonoBehaviour
         damageAudioSource = gameObject.AddComponent<AudioSource>();
         damageAudioSource.loop = false;
         damageAudioSource.playOnAwake = false;
-        damageAudioSource.volume = 0.7f;
+        damageAudioSource.volume = AudioManager.instance.sfxVolume;
 
     }
 
     // Update is called once per frame
     void Update()
     {
+        damageAudioSource.volume = AudioManager.instance.sfxVolume;
         invicibilityCoolDown -= Time.deltaTime;
 
         slider.value = health / maxHealth;

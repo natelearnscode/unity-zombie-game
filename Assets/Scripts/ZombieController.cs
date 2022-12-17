@@ -23,11 +23,17 @@ public class ZombieController : MonoBehaviour
         AudioSource[] audioSources = GetComponents<AudioSource>();
         walkAudioSource = audioSources[0];
         voiceAudioSource = audioSources[1];
+        walkAudioSource.volume = AudioManager.instance.sfxVolume;
+        voiceAudioSource.volume = AudioManager.instance.sfxVolume;
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        walkAudioSource.volume = AudioManager.instance.sfxVolume;
+        voiceAudioSource.volume = AudioManager.instance.sfxVolume;
+
         agent.SetDestination(player.transform.position);
         float speedPercent = agent.velocity.magnitude / agent.speed;
         animator.SetFloat("Idle Walk Run", speedPercent);
@@ -35,23 +41,12 @@ public class ZombieController : MonoBehaviour
         {
             AttackPlayer();
             animator.SetBool("isAttacking", true);
-
-            //if (!agent.hasPath || agent.velocity.sqrMagnitude == 0f)
-            //{
-            //    AttackPlayer();
-            //    animator.SetBool("isAttacking", true);
-            //}
-            //else
-            //{
-            //    animator.SetBool("isAttacking", false);
-            //}
         }
         else
         {
             if (!walkAudioSource.isPlaying && !PauseMenu.GameIsPaused)
             {
                 walkAudioSource.clip = walkAudioClips[Random.Range(0, walkAudioClips.Length)];
-                walkAudioSource.volume = 0.2f;
                 walkAudioSource.Play();
             }
             animator.SetBool("isAttacking", false);

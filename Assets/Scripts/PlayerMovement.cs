@@ -44,6 +44,8 @@ public class PlayerMovement : MonoBehaviour
         grounded = true;
         readyToJump = true;
         audioSource = GetComponent<AudioSource>();
+        audioSource.volume = AudioManager.instance.sfxVolume;
+
     }
 
     private void FixedUpdate()
@@ -54,6 +56,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        audioSource.volume = AudioManager.instance.sfxVolume;
 
         //ground check
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
@@ -95,7 +98,6 @@ public class PlayerMovement : MonoBehaviour
             if (moveDirection.magnitude > 0 && !audioSource.isPlaying)
             {
                 audioSource.clip = walkAudioClips[Random.Range(0, walkAudioClips.Length)];
-                audioSource.volume = 0.3f;
                 audioSource.Play();
 
             }

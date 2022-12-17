@@ -26,12 +26,13 @@ public class Gun : MonoBehaviour
     void Start()
     {
         audioSource = gameObject.AddComponent<AudioSource>();
-        audioSource.volume = 0.5f;
+        audioSource.volume = AudioManager.instance.sfxVolume;
     }
 
     // Update is called once per frame
     void Update()
     {
+        audioSource.volume = AudioManager.instance.sfxVolume;
         ammoCountUI.text = "Ammo: " + ammo;
 
         if (Input.GetButton("Fire1") && Time.time >= nextTimeToFire && ammo > 0 && !PauseMenu.GameIsPaused)
@@ -48,7 +49,7 @@ public class Gun : MonoBehaviour
 
     void Shoot()
     {
-        audioSource.PlayOneShot(shootingAudioClips[Random.Range(0, shootingAudioClips.Length)], 0.3f);
+        audioSource.PlayOneShot(shootingAudioClips[Random.Range(0, shootingAudioClips.Length)], AudioManager.instance.sfxVolume);
 
         muzzleFlash.Play();
         ammo--;
